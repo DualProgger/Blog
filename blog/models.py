@@ -2,6 +2,16 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+
+"""
+Определяем собственный менеджер моделей
+"""
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status=Post.Status.PUBLISHED)
+
+
+
 """
 Создание модели постов моего блога
 """
@@ -22,6 +32,10 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     # создаем поле для выбора записи: черновик(DF) или опубликовать(PB)
     status = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT)
+    # менеджер, применяемый по умолчанию
+    objects = models.Manager()
+    # пользовательский менеджер
+    published = PublishedManager()
     
     class Meta:
         # способ сортировки по-умолчанию(по убыванию даты публикации)
