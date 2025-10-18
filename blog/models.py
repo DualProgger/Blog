@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 
@@ -21,7 +22,11 @@ class Post(models.Model):
         PUBLISHED = 'PB', 'Published'
     
     title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250, unique=True)
+    # параметр unique_for_date говорит полю slug должно быть 
+    # уникальным для каждой даты, сохраненной в поле publish. 
+    # Это означает, что два поста могут иметь одинаковый slug, 
+    # если они опубликованы в разные дни.
+    slug = models.SlugField(max_length=250, unique_for_date='publish')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     body = models.TextField()
     # поле даты публикации
@@ -48,3 +53,13 @@ class Post(models.Model):
     # строковое представление объекта Post - это будет его заголовок
     def __str__(self):
         return self.title
+    
+    # в качестве главного url-адреса берем конкретную запись блога по его id, т.е.
+    # По этому имени будет извлечён шаблон URL 'blog/<int:id>/', в который 
+    # будет подставлено значение аргумента id. Например, для объекта 
+    # с id равным 7, будет получен такой URL: /blog/7/
+    def get_absolute_url(self):
+        return reverse('blog:post_detail', args=[self.publish.year,
+                                                 self.publish.month,
+                                                 self.publish.day,
+                                                 self.slug])

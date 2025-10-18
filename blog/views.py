@@ -8,11 +8,17 @@ def post_list(request):
     return render(request, 'blog/post/list.html', {'posts': posts})
 
 # Вывод информации о конкретном посте
-def post_detail(request, id):
+def post_detail(request, year, month, day, slug):
     """
     данная строка заменяет блок try/except;
-    id=id, status=Post.Status.PUBLISHED - это именованные аргументы,
+    year, month, day, slug, status=Post.Status.PUBLISHED -
+    это именованные аргументы,
     по которым происходит фильтрация
     """
-    post = get_object_or_404(Post, id=id, status=Post.Status.PUBLISHED)
+    post = get_object_or_404(Post, 
+                             status=Post.Status.PUBLISHED, 
+                             publish__year=year,
+                             publish__month=month,
+                             publish__day=day,
+                             slug=slug)
     return render(request, 'blog/post/detail.html', {'post': post})
