@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
 
 
@@ -41,6 +42,8 @@ class Post(models.Model):
     objects = models.Manager()
     # пользовательский менеджер
     published = PublishedManager()
+    # добавляем функционал тэгирования
+    tags = TaggableManager()
     
     class Meta:
         # способ сортировки по-умолчанию(по убыванию даты публикации)
