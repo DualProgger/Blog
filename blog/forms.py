@@ -15,3 +15,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['name', 'email', 'body']
+
+"""
+Форма для ввода поискового запроса
+"""
+class SearchForm(forms.Form):
+    query = forms.CharField()
