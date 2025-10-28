@@ -145,4 +145,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = "/"
+# LOGOUT_REDIRECT_URL = "/"
+
+# Куки-сессия рассчитывается как (секунды * минуты * часы * дни), 
+# т.е. сколько наш сайт будет помнить пользователя
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
