@@ -7,6 +7,8 @@
         "rylr",
         "taggit",
         "templatetags",
+        "uidb",
+        "validlink",
         "yplv"
     ]
 }
