@@ -3,3 +3,4 @@
 */__pycache__/
 blog/migrations/__pycache__/
 blog/templatetags/__pycache__/
+.env
