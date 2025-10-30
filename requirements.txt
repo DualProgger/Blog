@@ -5,6 +5,7 @@ charset-normalizer==3.4.4
 cryptography==46.0.3
 defusedxml==0.7.1
 Django==5.2.7
+django-bootstrap5==25.2
 django-taggit==6.1.0
 idna==3.11
 Markdown==3.9
